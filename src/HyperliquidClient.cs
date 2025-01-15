@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HyperliquidNet
+namespace HyperliquidNet.src
 {
-    internal class Program
+    internal class Class1
     {
     }
 }

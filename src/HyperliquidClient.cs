@@ -1,4 +1,6 @@
-﻿using System;
+﻿using HyperliquidNet.src.Services;
+using HyperliquidNet.src.Services.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,6 +13,7 @@ namespace HyperliquidNet.src
         private readonly HyperliquidClientOptions _hyperliquidClientOptions;
         private readonly HttpClient _httpClient;
         private bool _disposed;
+        public ISpotService Spot { get; }
 
 
         /// <summary>
@@ -19,7 +22,7 @@ namespace HyperliquidNet.src
         public HyperliquidClient()
             : this(new HyperliquidClientOptions())
         {
-
+            Spot = new SpotService(_httpClient);
         }
 
         /// <summary>

@@ -29,5 +29,11 @@ namespace HyperliquidNet.src.Services
                 new { user = address }
                 );
         }
+
+        public async Task<SpotMetaResponse> GetSpotMetadataAsync()
+        {
+            return await SendHyperliquidRequestAsync<SpotMetaResponse>(
+                "spotMeta");
+        }
     }
 }

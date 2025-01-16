@@ -20,5 +20,12 @@ namespace HyperliquidNet.src.Services.Interfaces
         /// <param name="address">A valid wallet address</param>
         /// <returns>A collection of token balances for the specified wallet</returns>
         Task<SpotBalanceResponse> GetSpotBalanceAsync(string address);
+
+        /// <summary>
+        /// Retrieves information about the spot deploy auction
+        /// </summary>
+        /// <param name="address">Onchain address in 42-char hexdecimal format</param>
+        /// <returns>ADD</returns>
+        Task<SpotDeployAuctionResponse> GetSpotDeployAuctionAsync(string address);
     }
 }

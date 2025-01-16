@@ -10,45 +10,9 @@ using System.Threading.Tasks;
 
 namespace HyperliquidNet.src.Services
 {
-    public class SpotService : ISpotService
+    public class SpotService : BaseService, ISpotService
     {
-        private readonly HttpClient _httpClient;
-
-
-        public SpotService(HttpClient httpClient)
-        {
-            _httpClient = httpClient ?? throw new ArgumentNullException(nameof(httpClient));
-        }
-
-        private async Task<T> SendHyperliquidRequestAsync<T>(string type, object parameters = null)
-        {
-            // Start with the type
-            var requestDict = new Dictionary<string, object> { { "type", type } };
-
-            // If we have additional parameters, add them all to the dictionary
-            if (parameters != null)
-            {
-                var paramProperties = parameters.GetType().GetProperties();
-                foreach (var prop in paramProperties)
-                {
-                    var value = prop.GetValue(parameters);
-                    if (value != null)
-                    {
-                        requestDict.Add(prop.Name.ToLower(), value);
-                    }
-                }
-            }
-
-            var content = new StringContent(
-                JsonSerializer.Serialize(requestDict),
-                Encoding.UTF8,
-                MediaTypeHeaderValue.Parse("application/json"));
-
-            var response = await _httpClient.PostAsync("/info", content);
-            response.EnsureSuccessStatusCode();
-            var responseContent = await response.Content.ReadAsStringAsync();
-            return JsonSerializer.Deserialize<T>(responseContent);
-        }
+        public SpotService(HttpClient httpClient) : base(httpClient) { }
 
         public async Task<SpotBalanceResponse> GetSpotBalanceAsync(string address)
         {

@@ -27,5 +27,12 @@ namespace HyperliquidNet.src.Services.Interfaces
         /// <param name="address">Onchain address in 42-char hexdecimal format</param>
         /// <returns>ADD</returns>
         Task<SpotDeployAuctionResponse> GetSpotDeployAuctionAsync(string address);
+
+
+        /// <summary>
+        /// Retrieves spot metadata information
+        /// </summary>
+        /// <returns>ADD</returns>
+        Task<SpotMetaResponse> GetSpotMetadataAsync();
     }
 }

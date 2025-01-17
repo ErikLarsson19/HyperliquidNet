@@ -34,5 +34,8 @@ namespace HyperliquidNet.src.Services.Interfaces
         /// </summary>
         /// <returns>ADD</returns>
         Task<SpotMetaResponse> GetSpotMetadataAsync();
+
+
+        Task<SpotAssetContextResponse> GetSpotAssetContextsAsync();
     }
 }

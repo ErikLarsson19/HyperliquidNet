@@ -35,7 +35,17 @@ namespace HyperliquidNet.src.Services.Interfaces
         /// <returns>ADD</returns>
         Task<SpotMetaResponse> GetSpotMetadataAsync();
 
-
+        /// <summary>
+        /// Retrieves spot asset contexts
+        /// </summary>
+        /// <returns></returns>
         Task<SpotAssetContextResponse> GetSpotAssetContextsAsync();
+
+        /// <summary>
+        /// Retrieves detailed information about a specified token
+        /// </summary>
+        /// <param name="id">The onchain 34-char hexdecimal format id of the token</param>
+        /// <returns></returns>
+        Task<SpotTokenInformationResponse> GetSpotTokenDetailsAsync(string id);
     }
 }

@@ -31,7 +31,7 @@ namespace HyperliquidNet.src.Services
                     var value = prop.GetValue(parameters);
                     if (value != null)
                     {
-                        requestDict.Add(prop.Name.ToLower(), value);
+                        requestDict.Add(prop.Name, value);
                     }
                 }
             }

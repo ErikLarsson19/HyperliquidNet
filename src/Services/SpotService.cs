@@ -41,5 +41,13 @@ namespace HyperliquidNet.src.Services
             return await SendHyperliquidRequestAsync<SpotAssetContextResponse>(
                 "spotMetaAndAssetCtxs");
         }
+
+        public async Task<SpotTokenInformationResponse> GetSpotTokenDetailsAsync(string id)
+        {
+            return await SendHyperliquidRequestAsync<SpotTokenInformationResponse>(
+                "tokenDetails",
+                new { tokenId = id }
+                );
+        }
     }
 }

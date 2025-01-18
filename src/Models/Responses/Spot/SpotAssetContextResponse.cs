@@ -1,4 +1,5 @@
-﻿using System;
+﻿using HyperliquidNet.src.Models.SpotModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,7 +7,7 @@ using System.Text.Json;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
-namespace HyperliquidNet.src.Models.Responses
+namespace HyperliquidNet.src.Models.Responses.Spot
 {
 
     /// <summary>
@@ -28,13 +29,13 @@ namespace HyperliquidNet.src.Models.Responses
 
             var response = new SpotAssetContextResponse();
 
-            reader.Read(); 
+            reader.Read();
             response.MetaData = JsonSerializer.Deserialize<SpotMetaResponse>(ref reader, options);
 
-            reader.Read(); 
+            reader.Read();
             response.AssetContexts = JsonSerializer.Deserialize<List<SpotAssetContext>>(ref reader, options);
 
-            reader.Read(); 
+            reader.Read();
 
             return response;
         }

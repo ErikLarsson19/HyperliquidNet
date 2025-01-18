@@ -14,6 +14,7 @@ namespace HyperliquidNet.src
         private readonly HttpClient _httpClient;
         private bool _disposed;
         public ISpotService Spot { get; }
+        public IPerpService Perp { get; }
 
 
         /// <summary>
@@ -23,6 +24,7 @@ namespace HyperliquidNet.src
             : this(new HyperliquidClientOptions())
         {
             Spot = new SpotService(_httpClient);
+            Perp = new PerpService(_httpClient);
         }
 
         /// <summary>

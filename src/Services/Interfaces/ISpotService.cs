@@ -1,4 +1,4 @@
-﻿using HyperliquidNet.src.Models.Responses;
+﻿using HyperliquidNet.src.Models.Responses.Spot;
 using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace HyperliquidNet.src.Services.Interfaces
 {
     /// <summary>
-    /// Provedes access to spot market operations and data
+    /// Provides access to spot market operations and data
     /// </summary>
     public interface ISpotService
     {

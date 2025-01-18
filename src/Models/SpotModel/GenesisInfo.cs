@@ -5,7 +5,7 @@ using System.Text;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
-namespace HyperliquidNet.src.Models
+namespace HyperliquidNet.src.Models.SpotModel
 {
     public class GenesisInfo
     {

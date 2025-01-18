@@ -1,4 +1,4 @@
-﻿using HyperliquidNet.src.Models.Responses;
+﻿using HyperliquidNet.src.Models.Responses.Spot;
 using HyperliquidNet.src.Services.Interfaces;
 using System;
 using System.Collections.Generic;

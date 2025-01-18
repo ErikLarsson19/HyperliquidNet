@@ -28,5 +28,9 @@ namespace HyperliquidNet.src.Services.Interfaces
         /// <param name="endTime">Optional, End time in milliseconds, defaults to current time</param>
         /// <returns></returns>
         Task<HistoricalFundingRateResponse> GetCoinHistoricalFundingRateAsync(string coin, int startTime, int? endTime = null);
+
+
+
+        Task<AssetContextResponse> GetPerpAssetContextsAsync();
     }
 }

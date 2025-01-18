@@ -22,6 +22,13 @@ namespace HyperliquidNet.src.Services
                 "meta");
         }
 
+        public async Task<AssetContextResponse> GetPerpAssetContextsAsync()
+        {
+            return await SendHyperliquidRequestAsync<AssetContextResponse>(
+                "metaAndAssetCtxs"
+                );
+        }
+
         public async Task<HistoricalFundingRateResponse> GetCoinHistoricalFundingRateAsync(string coin, int startTime, int? endTime = null) 
         {
             dynamic requestObj = new

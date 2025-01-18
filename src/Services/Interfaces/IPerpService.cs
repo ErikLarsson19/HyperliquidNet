@@ -32,5 +32,7 @@ namespace HyperliquidNet.src.Services.Interfaces
 
 
         Task<AssetContextResponse> GetPerpAssetContextsAsync();
+
+        Task<PerpAccountSummaryResponse> GetPerpAccountSummaryAsync(string address);
     }
 }

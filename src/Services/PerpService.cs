@@ -29,6 +29,14 @@ namespace HyperliquidNet.src.Services
                 );
         }
 
+        public async Task<PerpAccountSummaryResponse> GetPerpAccountSummaryAsync(string address)
+        {
+            return await SendHyperliquidRequestAsync<PerpAccountSummaryResponse>(
+                "clearinghouseState",
+                new {user = address}
+                );
+        }
+
         public async Task<HistoricalFundingRateResponse> GetCoinHistoricalFundingRateAsync(string coin, int startTime, int? endTime = null) 
         {
             dynamic requestObj = new

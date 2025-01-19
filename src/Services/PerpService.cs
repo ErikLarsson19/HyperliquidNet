@@ -36,6 +36,54 @@ namespace HyperliquidNet.src.Services
                 new {user = address}
                 );
         }
+        
+        public async Task<PerpUserFundingHistoryResponse> GetUserFundingHistoryAsync(
+            string user, int startTime, int? endTime = null)
+        {
+            dynamic requestObj = new
+            {
+                user,
+                startTime
+            };
+
+            if (endTime.HasValue)
+            {
+                requestObj = new
+                {
+                    user,
+                    startTime,
+                    endTime = endTime.Value
+                };
+            }
+            return await SendHyperliquidRequestAsync<PerpUserFundingHistoryResponse>(
+                "userFunding",
+                requestObj
+                );
+        }
+
+        public async Task<PerpUserNonFundingHistoryResponse> GetUserNonFundingHistoryAsync(
+            string user, int startTime, int ? endTime = null)
+        {
+            dynamic requestObj = new
+            {
+                user,
+                startTime
+            };
+
+            if (endTime.HasValue)
+            {
+                requestObj = new
+                {
+                    user,
+                    startTime,
+                    endTime = endTime.Value
+                };
+            }
+            return await SendHyperliquidRequestAsync<PerpUserNonFundingHistoryResponse>(
+                "userNonFundingLedgerUpdates",
+                requestObj
+                );
+        }
 
         public async Task<HistoricalFundingRateResponse> GetCoinHistoricalFundingRateAsync(string coin, int startTime, int? endTime = null) 
         {

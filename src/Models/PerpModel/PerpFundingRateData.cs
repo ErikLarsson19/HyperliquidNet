@@ -1,4 +1,5 @@
-﻿using System;
+﻿using HyperliquidNet.src.Utils;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,12 +15,17 @@ namespace HyperliquidNet.src.Models.PerpModel
         public string Coin { get; set; }
 
         [JsonPropertyName("fundingRate")]
-        public string FundingRate { get; set; }
+        [JsonConverter(typeof(DecimalJsonConverter))]
+        public decimal FundingRate { get; set; }
 
         [JsonPropertyName("premium")]
-        public string Premium { get; set; }
+        [JsonConverter(typeof(DecimalJsonConverter))]
+        public decimal Premium { get; set; }
 
         [JsonPropertyName("time")]
         public long Time { get; set; }
+
+        [JsonIgnore]
+        public DateTime Timestamp => ParseUtils.ParseUnixTimeStamp(Time);
     }
 }

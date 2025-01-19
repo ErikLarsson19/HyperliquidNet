@@ -1,5 +1,7 @@
-﻿using System;
+﻿using HyperliquidNet.src.Utils;
+using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Text.Json.Serialization;
@@ -13,7 +15,8 @@ namespace HyperliquidNet.src.Models.PerpModel
         public List<AssetPosition> AssetPositions { get; set; }
 
         [JsonPropertyName("crossMaintenanceMarginUsed")]
-        public string CrossMaintenanceMarginUsed { get; set; }
+        [JsonConverter(typeof(DecimalJsonConverter))]
+        public decimal CrossMaintenanceMarginUsed { get; set; }
 
         [JsonPropertyName("crossMarginSummary")]
         public PerpMarginSummary CrossMarginSummary { get; set; }
@@ -24,7 +27,11 @@ namespace HyperliquidNet.src.Models.PerpModel
         [JsonPropertyName("time")]
         public long Time { get; set; }
 
+        [JsonIgnore]
+        public DateTime Timestamp => ParseUtils.ParseUnixTimeStamp(Time);
+
         [JsonPropertyName("withdrawable")]
-        public string Withdrawable { get; set; }
+        [JsonConverter(typeof(DecimalJsonConverter))]
+        public decimal Withdrawable { get; set; }
     }
 }

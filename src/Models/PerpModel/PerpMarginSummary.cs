@@ -1,5 +1,7 @@
-﻿using System;
+﻿using HyperliquidNet.src.Utils;
+using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Text.Json.Serialization;
@@ -10,15 +12,19 @@ namespace HyperliquidNet.src.Models.PerpModel
     public class PerpMarginSummary
     {
         [JsonPropertyName("accountValue")]
-        public string AccountValue { get; set; }
+        [JsonConverter(typeof(DecimalJsonConverter))]
+        public decimal AccountValue { get; set; }
 
         [JsonPropertyName("totalMarginUsed")]
-        public string TotalMarginUsed { get; set; }
+        [JsonConverter(typeof(DecimalJsonConverter))]
+        public decimal TotalMarginUsed { get; set; }
 
         [JsonPropertyName("totalNtlPos")]
-        public string TotalNtlPos { get; set; }
+        [JsonConverter(typeof(DecimalJsonConverter))]
+        public decimal TotalNtlPos { get; set; }
 
         [JsonPropertyName("totalRawUsd")]
-        public string TotalRawUsd { get; set; }
+        [JsonConverter(typeof(DecimalJsonConverter))]
+        public decimal TotalRawUsd { get; set; }
     }
 }

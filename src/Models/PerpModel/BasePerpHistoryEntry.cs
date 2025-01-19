@@ -1,4 +1,5 @@
-﻿using System;
+﻿using HyperliquidNet.src.Utils;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,5 +15,8 @@ namespace HyperliquidNet.src.Models.PerpModel
 
         [JsonPropertyName("time")]
         public long Time { get; set; }
+
+        [JsonIgnore]
+        public DateTime Timestamp => ParseUtils.ParseUnixTimeStamp(Time);
     }
 }

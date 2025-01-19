@@ -1,5 +1,7 @@
-﻿using System;
+﻿using HyperliquidNet.src.Utils;
+using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Text.Json.Serialization;
@@ -16,30 +18,37 @@ namespace HyperliquidNet.src.Models.PerpModel
         public PerpCumulativeFunding CumFunding { get; set; }
 
         [JsonPropertyName("entryPx")]
-        public string EntryPx { get; set; }
+        [JsonConverter(typeof(DecimalJsonConverter))]
+        public decimal EntryPx { get; set; }
 
         [JsonPropertyName("leverage")]
         public PerpLeverage Leverage { get; set; }
 
         [JsonPropertyName("liquidationPx")]
-        public string LiquidationPx { get; set; }
+        [JsonConverter(typeof(DecimalJsonConverter))]
+        public decimal LiquidationPx { get; set; }
 
         [JsonPropertyName("marginUsed")]
-        public string MarginUsed { get; set; }
+        [JsonConverter(typeof(DecimalJsonConverter))]
+        public decimal MarginUsed { get; set; }
 
         [JsonPropertyName("maxLeverage")]
         public int MaxLeverage { get; set; }
 
         [JsonPropertyName("positionValue")]
-        public string PositionValue { get; set; }
+        [JsonConverter(typeof(DecimalJsonConverter))]
+        public decimal PositionValue { get; set; }
 
         [JsonPropertyName("returnOnEquity")]
-        public string ReturnOnEquity { get; set; }
+        [JsonConverter(typeof(DecimalJsonConverter))]
+        public decimal ReturnOnEquity { get; set; }
 
         [JsonPropertyName("szi")]
-        public string Szi { get; set; }
+        [JsonConverter(typeof(DecimalJsonConverter))]
+        public decimal Szi { get; set; }
 
         [JsonPropertyName("unrealizedPnl")]
-        public string UnrealizedPnl { get; set; }
+        [JsonConverter(typeof(DecimalJsonConverter))]
+        public decimal UnrealizedPnl { get; set; }
     }
 }

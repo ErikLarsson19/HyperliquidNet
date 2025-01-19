@@ -1,4 +1,5 @@
-﻿using System;
+﻿using HyperliquidNet.src.Utils;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,30 +11,38 @@ namespace HyperliquidNet.src.Models.PerpModel
     public class PerpAssetContext
     {
         [JsonPropertyName("dayNtlVlm")]
-        public string DayNotionalVolume { get; set; }
+        [JsonConverter(typeof(DecimalJsonConverter))]
+        public decimal DayNotionalVolume { get; set; }
 
         [JsonPropertyName("funding")]
-        public string Funding { get; set; }
+        [JsonConverter(typeof(DecimalJsonConverter))]
+        public decimal Funding { get; set; }
 
         [JsonPropertyName("impactPxs")]
         public List<string> ImpactPrices { get; set; }
 
         [JsonPropertyName("markPx")]
-        public string MarkPrice { get; set; }
+        [JsonConverter(typeof(DecimalJsonConverter))]
+        public decimal MarkPrice { get; set; }
 
         [JsonPropertyName("midPx")]
-        public string MidPrice { get; set; }
+        [JsonConverter(typeof(DecimalJsonConverter))]
+        public decimal MidPrice { get; set; }
 
         [JsonPropertyName("openInterest")]
-        public string OpenInterest { get; set; }
+        [JsonConverter(typeof(DecimalJsonConverter))]
+        public decimal OpenInterest { get; set; }
 
         [JsonPropertyName("oraclePx")]
-        public string OraclePrice { get; set; }
+        [JsonConverter(typeof(DecimalJsonConverter))]
+        public decimal OraclePrice { get; set; }
 
         [JsonPropertyName("premium")]
-        public string Premium { get; set; }
+        [JsonConverter(typeof(DecimalJsonConverter))]
+        public decimal? Premium { get; set; }
 
         [JsonPropertyName("prevDayPx")]
-        public string PreviousDayPrice { get; set; }
+        [JsonConverter(typeof(DecimalJsonConverter))]
+        public decimal PreviousDayPrice { get; set; }
     }
 }

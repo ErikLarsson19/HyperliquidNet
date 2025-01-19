@@ -1,5 +1,7 @@
-﻿using System;
+﻿using HyperliquidNet.src.Utils;
+using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Text.Json.Serialization;
@@ -10,7 +12,8 @@ namespace HyperliquidNet.src.Models.PerpModel
     public class PerpLeverage
     {
         [JsonPropertyName("rawUsd")]
-        public string RawUsd { get; set; }
+        [JsonConverter(typeof(DecimalJsonConverter))]
+        public decimal RawUsd { get; set; }
 
         [JsonPropertyName("type")]
         public string Type { get; set; }

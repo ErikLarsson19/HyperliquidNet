@@ -1,4 +1,5 @@
-﻿using System;
+﻿using HyperliquidNet.src.Utils;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,12 +11,15 @@ namespace HyperliquidNet.src.Models.PerpModel
     public class PerpCumulativeFunding
     {
         [JsonPropertyName("allTime")]
-        public string AllTime { get; set; }
+        [JsonConverter(typeof(DecimalJsonConverter))]
+        public decimal AllTime { get; set; }
 
         [JsonPropertyName("sinceChange")]
-        public string SinceChange { get; set; }
+        [JsonConverter(typeof(DecimalJsonConverter))]
+        public decimal SinceChange { get; set; }
 
         [JsonPropertyName("sinceOpen")]
-        public string SinceOpen { get; set; }
+        [JsonConverter(typeof(DecimalJsonConverter))]
+        public decimal SinceOpen { get; set; }
     }
 }

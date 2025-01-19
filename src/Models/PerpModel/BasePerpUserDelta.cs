@@ -1,4 +1,5 @@
-﻿using System;
+﻿using HyperliquidNet.src.Utils;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -16,6 +17,7 @@ namespace HyperliquidNet.src.Models.PerpModel
         public string Type { get; set; }
 
         [JsonPropertyName("usdc")]
-        public string USDC { get; set; }
+        [JsonConverter(typeof(DecimalJsonConverter))]
+        public decimal USDC { get; set; }
     }
 }

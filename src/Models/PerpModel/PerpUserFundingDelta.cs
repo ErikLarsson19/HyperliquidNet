@@ -1,5 +1,7 @@
-﻿using System;
+﻿using HyperliquidNet.src.Utils;
+using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Text.Json.Serialization;
@@ -10,9 +12,11 @@ namespace HyperliquidNet.src.Models.PerpModel
     public class PerpUserFundingDelta : BasePerpUserDelta
     {
         [JsonPropertyName("fundingRate")]
-        public string FundingRate { get; set; }
+        [JsonConverter(typeof(DecimalJsonConverter))]
+        public decimal FundingRate { get; set; }
 
         [JsonPropertyName("szi")]
-        public string Szi { get; set; }
+        [JsonConverter(typeof(DecimalJsonConverter))]
+        public decimal Szi { get; set; }
     }
 }

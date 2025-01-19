@@ -37,6 +37,13 @@ namespace HyperliquidNet.src.Services
                 );
         }
         
+        /// <summary>
+        /// Retrieves auto non user-initiated transactions, funding entries
+        /// </summary>
+        /// <param name="user">A valid wallet address</param>
+        /// <param name="startTime"></param>
+        /// <param name="endTime"></param>
+        /// <returns></returns>
         public async Task<PerpUserFundingHistoryResponse> GetUserFundingHistoryAsync(
             string user, int startTime, int? endTime = null)
         {
@@ -61,6 +68,13 @@ namespace HyperliquidNet.src.Services
                 );
         }
 
+        /// <summary>
+        /// Retrieves the users non funding entries, deposits, withdrawls and internal transfers
+        /// </summary>
+        /// <param name="user">A valid wallet address</param>
+        /// <param name="startTime"></param>
+        /// <param name="endTime"></param>
+        /// <returns></returns>
         public async Task<PerpUserNonFundingHistoryResponse> GetUserNonFundingHistoryAsync(
             string user, int startTime, int ? endTime = null)
         {

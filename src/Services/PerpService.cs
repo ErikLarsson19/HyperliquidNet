@@ -29,6 +29,13 @@ namespace HyperliquidNet.src.Services
                 );
         }
 
+        public async Task<OpenInterestCapsResponse> GetOpenInterestCapsAsync()
+        {
+            return await SendHyperliquidRequestAsync<OpenInterestCapsResponse>(
+                "perpsAtOpenInterestCap"
+                );
+        }
+
         public async Task<PerpAccountSummaryResponse> GetPerpAccountSummaryAsync(string address)
         {
             return await SendHyperliquidRequestAsync<PerpAccountSummaryResponse>(
@@ -44,7 +51,7 @@ namespace HyperliquidNet.src.Services
         /// <param name="startTime"></param>
         /// <param name="endTime"></param>
         /// <returns></returns>
-        public async Task<PerpUserFundingHistoryResponse> GetUserFundingHistoryAsync(
+        public async Task<UserFundingHistoryResponse> GetUserFundingHistoryAsync(
             string user, int startTime, int? endTime = null)
         {
             dynamic requestObj = new
@@ -62,7 +69,7 @@ namespace HyperliquidNet.src.Services
                     endTime = endTime.Value
                 };
             }
-            return await SendHyperliquidRequestAsync<PerpUserFundingHistoryResponse>(
+            return await SendHyperliquidRequestAsync<UserFundingHistoryResponse>(
                 "userFunding",
                 requestObj
                 );
@@ -75,7 +82,7 @@ namespace HyperliquidNet.src.Services
         /// <param name="startTime"></param>
         /// <param name="endTime"></param>
         /// <returns></returns>
-        public async Task<PerpUserNonFundingHistoryResponse> GetUserNonFundingHistoryAsync(
+        public async Task<UserFundingHistoryResponse> GetUserNonFundingHistoryAsync(
             string user, int startTime, int ? endTime = null)
         {
             dynamic requestObj = new
@@ -93,7 +100,7 @@ namespace HyperliquidNet.src.Services
                     endTime = endTime.Value
                 };
             }
-            return await SendHyperliquidRequestAsync<PerpUserNonFundingHistoryResponse>(
+            return await SendHyperliquidRequestAsync<UserFundingHistoryResponse>(
                 "userNonFundingLedgerUpdates",
                 requestObj
                 );

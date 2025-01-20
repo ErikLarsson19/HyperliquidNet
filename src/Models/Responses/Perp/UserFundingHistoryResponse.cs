@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace HyperliquidNet.src.Models.Responses.Perp
 {
-    public class PerpUserNonFundingHistoryResponse : List<PerpNonFundingHistoryEntry>
+    public class UserFundingHistoryResponse : List<PerpUserLedgerEntry>
     {
     }
 }

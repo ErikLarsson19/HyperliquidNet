@@ -35,11 +35,13 @@ namespace HyperliquidNet.src.Services.Interfaces
 
         Task<PerpAccountSummaryResponse> GetPerpAccountSummaryAsync(string address);
 
-        Task<PerpUserNonFundingHistoryResponse> GetUserNonFundingHistoryAsync(
+        Task<UserFundingHistoryResponse> GetUserNonFundingHistoryAsync(
             string user, int startTime, int? endTime = null);
 
 
-        Task<PerpUserFundingHistoryResponse> GetUserFundingHistoryAsync(
+        Task<UserFundingHistoryResponse> GetUserFundingHistoryAsync(
             string user, int startTime, int? endTime = null);
+
+        Task<OpenInterestCapsResponse> GetOpenInterestCapsAsync();
     }
 }

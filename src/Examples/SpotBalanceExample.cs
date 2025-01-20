@@ -67,7 +67,7 @@ namespace HyperliquidNet.src.Examples
                 Console.WriteLine($"Start Time: {DateTimeOffset.FromUnixTimeSeconds(deployer.GasAuction.StartTimeSeconds)}");
                 Console.WriteLine($"Duration: {TimeSpan.FromSeconds(deployer.GasAuction.DurationSeconds)}");
                 Console.WriteLine($"Start Gas: {deployer.GasAuction.StartGas}");
-                Console.WriteLine($"Current Gas: {deployer.GasAuction.CurrentGas ?? "Not set"}");
+                //Console.WriteLine($"Current Gas: {deployer.GasAuction.CurrentGas ?? "Not set"}");
                 Console.WriteLine($"End Gas: {deployer.GasAuction.EndGas}");
             } catch(Exception e)
             {

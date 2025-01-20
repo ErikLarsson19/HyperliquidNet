@@ -1,4 +1,5 @@
-﻿using System;
+﻿using HyperliquidNet.src.Utils;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,15 +11,19 @@ namespace HyperliquidNet.src.Models.SpotModel
     public class SpotAssetContext
     {
         [JsonPropertyName("dayNtlVlm")]
-        public string DayNtlVolume { get; set; }
+        [JsonConverter(typeof(DecimalJsonConverter))]
+        public decimal DayNtlVolume { get; set; }
 
         [JsonPropertyName("markPx")]
-        public string MarkPrice { get; set; }
+        [JsonConverter(typeof(DecimalJsonConverter))]
+        public decimal MarkPrice { get; set; }
 
         [JsonPropertyName("midPx")]
-        public string MidPrice { get; set; }
+        [JsonConverter(typeof(DecimalJsonConverter))]
+        public decimal MidPrice { get; set; }
 
         [JsonPropertyName("prevDayPx")]
-        public string PrevDayPrice { get; set; }
+        [JsonConverter(typeof(DecimalJsonConverter))]
+        public decimal PrevDayPrice { get; set; }
     }
 }

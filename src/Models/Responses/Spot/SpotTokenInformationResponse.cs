@@ -1,4 +1,5 @@
 ﻿using HyperliquidNet.src.Models.SpotModel;
+using HyperliquidNet.src.Utils;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,13 +15,16 @@ namespace HyperliquidNet.src.Models.Responses.Spot
         public string Name { get; set; }
 
         [JsonPropertyName("maxSupply")]
-        public string MaxSupply { get; set; }
+        [JsonConverter(typeof(DecimalJsonConverter))]
+        public decimal MaxSupply { get; set; }
 
         [JsonPropertyName("totalSupply")]
-        public string TotalSupply { get; set; }
+        [JsonConverter(typeof(DecimalJsonConverter))]
+        public decimal TotalSupply { get; set; }
 
         [JsonPropertyName("circulatingSupply")]
-        public string CirculatingSupply { get; set; }
+        [JsonConverter(typeof(DecimalJsonConverter))]
+        public decimal CirculatingSupply { get; set; }
 
         [JsonPropertyName("szDecimals")]
         public int SizeDecimals { get; set; }
@@ -29,13 +33,16 @@ namespace HyperliquidNet.src.Models.Responses.Spot
         public int WeiDecimals { get; set; }
 
         [JsonPropertyName("midPx")]
-        public string MidPrice { get; set; }
+        [JsonConverter(typeof(DecimalJsonConverter))]
+        public decimal MidPrice { get; set; }
 
         [JsonPropertyName("markPx")]
-        public string MarkPrice { get; set; }
+        [JsonConverter(typeof(DecimalJsonConverter))]
+        public decimal MarkPrice { get; set; }
 
         [JsonPropertyName("prevDayPx")]
-        public string PreviousDayPrice { get; set; }
+        [JsonConverter(typeof(DecimalJsonConverter))]
+        public decimal PreviousDayPrice { get; set; }
 
         [JsonPropertyName("genesis")]
         public GenesisInfo Genesis { get; set; }
@@ -44,18 +51,21 @@ namespace HyperliquidNet.src.Models.Responses.Spot
         public string Deployer { get; set; }
 
         [JsonPropertyName("deployGas")]
-        public string DeployGas { get; set; }
+        [JsonConverter(typeof(DecimalJsonConverter))]
+        public decimal DeployGas { get; set; }
 
         [JsonPropertyName("deployTime")]
         public string DeployTime { get; set; }
 
         [JsonPropertyName("seededUsdc")]
-        public string SeededUsdc { get; set; }
+        [JsonConverter(typeof(DecimalJsonConverter))]
+        public decimal SeededUsdc { get; set; }
 
         [JsonPropertyName("nonCirculatingUserBalances")]
         public List<object> NonCirculatingUserBalances { get; set; }
 
         [JsonPropertyName("futureEmissions")]
-        public string FutureEmissions { get; set; }
+        [JsonConverter(typeof(DecimalJsonConverter))]
+        public decimal FutureEmissions { get; set; }
     }
 }

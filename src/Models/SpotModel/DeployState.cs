@@ -1,4 +1,5 @@
-﻿using System;
+﻿using HyperliquidNet.src.Utils;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -22,13 +23,16 @@ namespace HyperliquidNet.src.Models.SpotModel
         public List<int> Spots { get; set; }
 
         [JsonPropertyName("maxSupply")]
-        public long MaxSupply { get; set; }
+        [JsonConverter(typeof(DecimalJsonConverter))]
+        public decimal MaxSupply { get; set; }
 
         [JsonPropertyName("hyperliquidityGenesisBalance")]
-        public string HyperliquidityGenesisBalance { get; set; }
+        [JsonConverter(typeof(DecimalJsonConverter))]
+        public decimal HyperliquidityGenesisBalance { get; set; }
 
         [JsonPropertyName("totalGenesisBalanceWei")]
-        public string TotalGenesisBalanceWei { get; set; }
+        [JsonConverter(typeof(DecimalJsonConverter))]
+        public decimal TotalGenesisBalanceWei { get; set; }
 
         [JsonPropertyName("userGenesisBalances")]
         public List<(string Address, string Balance)> UserGenesisBalances { get; set; }

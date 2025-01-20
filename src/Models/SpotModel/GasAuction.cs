@@ -1,4 +1,5 @@
-﻿using System;
+﻿using HyperliquidNet.src.Utils;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -16,12 +17,15 @@ namespace HyperliquidNet.src.Models.SpotModel
         public int DurationSeconds { get; set; }
 
         [JsonPropertyName("startGas")]
-        public string StartGas { get; set; }
+        [JsonConverter(typeof(DecimalJsonConverter))]
+        public decimal StartGas { get; set; }
 
         [JsonPropertyName("currentGas")]
-        public string? CurrentGas { get; set; }
+        [JsonConverter(typeof(DecimalJsonConverter))]
+        public decimal? CurrentGas { get; set; }
 
         [JsonPropertyName("endGas")]
+        [JsonConverter(typeof(DecimalJsonConverter))]
         public string EndGas { get; set; }
     }
 }

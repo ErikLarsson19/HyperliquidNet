@@ -15,6 +15,7 @@ namespace HyperliquidNet.src
         private bool _disposed;
         public ISpotService Spot { get; }
         public IPerpService Perp { get; }
+        public IMarketInfoService Market { get; }
 
 
         /// <summary>
@@ -25,6 +26,7 @@ namespace HyperliquidNet.src
         {
             Spot = new SpotService(_httpClient);
             Perp = new PerpService(_httpClient);
+            Market = new MarketInfoService(_httpClient);
         }
 
         /// <summary>

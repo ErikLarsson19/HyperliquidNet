@@ -21,5 +21,13 @@ namespace HyperliquidNet.src.Services
                 new { user = address }
                 );
         }
+
+        public async Task<MarketOpenOrderTinyResponse> GetMarketOpenOrdersTinyAsync(string address)
+        {
+            return await SendHyperliquidRequestAsync<MarketOpenOrderTinyResponse>(
+                "openOrders",
+                new { user = address }
+                );
+        }
     }
 }

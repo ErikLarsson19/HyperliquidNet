@@ -76,5 +76,14 @@ namespace HyperliquidNet.src.Services
                 requestObj
                 );
         }
+
+
+        public async Task<MarketUserRateLimitResponse> GetMarketUserRateLimit(string address)
+        {
+            return await SendHyperliquidRequestAsync<MarketUserRateLimitResponse>(
+                "userRateLimit",
+                new { user = address }
+                );
+        }
     }
 }

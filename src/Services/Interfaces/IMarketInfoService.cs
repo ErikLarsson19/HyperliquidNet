@@ -30,5 +30,7 @@ namespace HyperliquidNet.src.Services.Interfaces
 
         Task<MarketUserFillsByTimeResponse> GetMarketUserFillsByTimeAsync(
             string user, int startTime, int? endTime = null, bool? aggregateByTime = null);
+
+        Task<MarketUserRateLimitResponse> GetMarketUserRateLimit(string address);
     }
 }

@@ -14,19 +14,66 @@ namespace HyperliquidNet.src.Services
         public MarketInfoService(HttpClient httpClient) : base(httpClient) { }
 
 
-        public async Task<MarketOpenOrderResponse> GetMarketOpenOrdersAsync(string address)
+        public async Task<MarketOpenOrderFrontendResponse> GetMarketOpenOrdersAsync(string address)
         {
-            return await SendHyperliquidRequestAsync<MarketOpenOrderResponse>(
+            return await SendHyperliquidRequestAsync<MarketOpenOrderFrontendResponse>(
                 "frontendOpenOrders",
                 new { user = address }
                 );
         }
 
-        public async Task<MarketOpenOrderTinyResponse> GetMarketOpenOrdersTinyAsync(string address)
+        public async Task<MarketOpenOrderResponse> GetMarketOpenOrdersTinyAsync(string address)
         {
-            return await SendHyperliquidRequestAsync<MarketOpenOrderTinyResponse>(
+            return await SendHyperliquidRequestAsync<MarketOpenOrderResponse>(
                 "openOrders",
                 new { user = address }
+                );
+        }
+
+        public async Task<MarketUserFillsFrontendResponse> GetMarketUserFillsFrontendAsync(string address)
+        {
+            return await SendHyperliquidRequestAsync<MarketUserFillsFrontendResponse>(
+                "frontendOpenOrders",
+                new { user = address }
+                );
+        }
+
+        public async Task<MarketUserFillsResponse> GetMarketUserFillsAsync(string user, bool? aggregateByTime = null)
+        {
+            dynamic requestObj = new
+            {
+                user
+            };
+
+            if (aggregateByTime.HasValue)
+            {
+                requestObj = new
+                {
+                    user,
+                    aggregateByTime = aggregateByTime.Value
+                };
+            }
+            return await SendHyperliquidRequestAsync<MarketUserFillsResponse>(
+                "userFills",
+                requestObj
+                );
+        }
+
+
+        public async Task<MarketUserFillsByTimeResponse> GetMarketUserFillsByTimeAsync(
+            string user, int startTime, int? endTime = null, bool? aggregateByTime = null)
+        {
+            dynamic requestObj = new
+            {
+                user,
+                startTime,
+                endTime,
+                aggregateByTime
+            };
+
+            return await SendHyperliquidRequestAsync<MarketUserFillsByTimeResponse>(
+                "userFillsByTime",
+                requestObj
                 );
         }
     }

@@ -32,5 +32,11 @@ namespace HyperliquidNet.src.Services.Interfaces
             string user, int startTime, int? endTime = null, bool? aggregateByTime = null);
 
         Task<MarketUserRateLimitResponse> GetMarketUserRateLimit(string address);
+
+        Task<L2BookResponse> GetMarketL2Book(string coin, int? nSigFigs = null, int? mantissa = null);
+
+        Task<MarketCandleSnapshotResponse> GetMarketCandleSnapshot(
+            string coin, string interval, long startTime, long endTime);
+
     }
 }

@@ -4,7 +4,9 @@ using HyperliquidNet.src.Services.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http.Json;
 using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace HyperliquidNet.src.Services
@@ -84,6 +86,41 @@ namespace HyperliquidNet.src.Services
                 "userRateLimit",
                 new { user = address }
                 );
+        }
+
+        public async Task<L2BookResponse>GetMarketL2Book(string coin, int? nSigFigs = null, int? mantissa = null)
+        {
+            var requestObj = new
+            {
+                coin,
+                nSigFigs,
+                mantissa
+            };
+
+            return await SendHyperliquidRequestAsync<L2BookResponse>(
+                "l2Book",
+                requestObj
+            );
+        }
+
+        public async Task<MarketCandleSnapshotResponse> GetMarketCandleSnapshot(
+            string coin, string interval, long startTime, long endTime)
+        {
+            var request = new
+            {
+                req = new
+                {
+                    coin,
+                    interval,
+                    startTime,
+                    endTime
+                }
+            };
+
+            return await SendHyperliquidRequestAsync<MarketCandleSnapshotResponse>(
+                "candleSnapshot",
+                request
+            );
         }
     }
 }

@@ -122,5 +122,27 @@ namespace HyperliquidNet.src.Services
                 request
             );
         }
+
+        public async Task<int> GetMaxBuilderFeeAsync(string user, string builder)
+        {
+            var request = new
+            {
+                user,
+                builder
+            };
+
+            return await SendHyperliquidRequestAsync<int>(
+                "maxBuilderFee",
+                request
+                );
+        }
+
+        public async Task<MarketUserHistoricalOrdersResponse> GetUserHistoricalOrders(string address)
+        {
+            return await SendHyperliquidRequestAsync<MarketUserHistoricalOrdersResponse>(
+                "historicalOrders",
+                new { user = address }
+                );
+        }
     }
 }

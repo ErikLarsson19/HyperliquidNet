@@ -38,5 +38,11 @@ namespace HyperliquidNet.src.Services.Interfaces
         Task<MarketCandleSnapshotResponse> GetMarketCandleSnapshot(
             string coin, string interval, long startTime, long endTime);
 
+
+        Task<int> GetMaxBuilderFeeAsync(string user, string builder);
+
+
+        Task<MarketUserHistoricalOrdersResponse> GetUserHistoricalOrders(string address);
+
     }
 }

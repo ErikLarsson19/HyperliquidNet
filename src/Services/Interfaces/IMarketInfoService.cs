@@ -1,4 +1,5 @@
-﻿using HyperliquidNet.src.Models.Responses.MarketInfo;
+﻿using HyperliquidNet.src.Models.MarketModels;
+using HyperliquidNet.src.Models.Responses.MarketInfo;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -43,6 +44,10 @@ namespace HyperliquidNet.src.Services.Interfaces
 
 
         Task<MarketUserHistoricalOrdersResponse> GetUserHistoricalOrders(string address);
+
+        Task<MarketUserTwapSliceFillsResponse> GetUserTwapSliceFills(string address);
+
+        Task<MarketSubAccountsResponse> GetSubAccounts(string address);
 
     }
 }

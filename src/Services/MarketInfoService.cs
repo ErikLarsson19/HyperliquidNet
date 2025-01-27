@@ -1,4 +1,5 @@
-﻿using HyperliquidNet.src.Models.Responses.MarketInfo;
+﻿using HyperliquidNet.src.Models.MarketModels;
+using HyperliquidNet.src.Models.Responses.MarketInfo;
 using HyperliquidNet.src.Models.Responses.Perp;
 using HyperliquidNet.src.Services.Interfaces;
 using System;
@@ -143,6 +144,33 @@ namespace HyperliquidNet.src.Services
                 "historicalOrders",
                 new { user = address }
                 );
+        }
+
+        public async Task<MarketUserTwapSliceFillsResponse> GetUserTwapSliceFills(string address)
+        {
+            return await SendHyperliquidRequestAsync<MarketUserTwapSliceFillsResponse>(
+                "userTwapSliceFills",
+                new { user = address }
+                );
+        }
+
+        public async Task<MarketSubAccountsResponse> GetSubAccounts(string address)
+        {
+            try
+            {
+                var response = await SendHyperliquidRequestAsync<MarketSubAccountsResponse>(
+                    "subAccounts",
+                    new { user = address }
+                    );
+
+                return response ?? new MarketSubAccountsResponse();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine($"Error: {e.Message}");
+                throw;
+            }
+
         }
     }
 }

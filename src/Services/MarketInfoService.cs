@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http.Json;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
@@ -170,7 +171,25 @@ namespace HyperliquidNet.src.Services
                 Console.WriteLine($"Error: {e.Message}");
                 throw;
             }
+        }
+
+        public async Task<VaultDetailResponse> GetVaultDetails(
+            string vaultAddress, string? user = null)
+        {
+            var request = new
+            {
+                vaultAddress,
+                user
+            };
+            return await SendHyperliquidRequestAsync<VaultDetailResponse>(
+                "vaultDetails",
+                request
+                );
+        }
 
         }
     }
-}
+
+
+
+

@@ -49,5 +49,9 @@ namespace HyperliquidNet.src.Services.Interfaces
 
         Task<MarketSubAccountsResponse> GetSubAccounts(string address);
 
+
+        Task<VaultDetailResponse> GetVaultDetails(
+            string vaultAddress, string? user = null);
+
     }
 }

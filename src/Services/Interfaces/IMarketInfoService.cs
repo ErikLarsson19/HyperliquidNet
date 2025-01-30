@@ -53,5 +53,13 @@ namespace HyperliquidNet.src.Services.Interfaces
         Task<VaultDetailResponse> GetVaultDetails(
             string vaultAddress, string? user = null);
 
+        Task<MarketUserVaultDepositionsResponse> GetUserVaultDepositions(string address);
+
+        Task<MarketUserRole> GetUserRole(string address);
+
+        Task<MarketUserStakingDelegationsResponse> GetUserStakingDelegations(string address);
+
+        Task<MarketUserStakingHistoryResponse> GetUserStakingHistory(string address);
+
     }
 }

@@ -187,8 +187,40 @@ namespace HyperliquidNet.src.Services
                 );
         }
 
+        public async Task<MarketUserVaultDepositionsResponse> GetUserVaultDepositions(string address)
+        {
+            return await SendHyperliquidRequestAsync<MarketUserVaultDepositionsResponse>(
+                "userVaultEquities",
+                new { user = address }
+                );
         }
+
+        public async Task<MarketUserRole> GetUserRole(string address)
+        {
+            return await SendHyperliquidRequestAsync<MarketUserRole>(
+                "userRole",
+                new { user = address }
+                );
+        }
+
+        public async Task<MarketUserStakingDelegationsResponse> GetUserStakingDelegations(string address)
+        {
+            return await SendHyperliquidRequestAsync<MarketUserStakingDelegationsResponse>(
+                "delegations",
+                new { user = address }
+                );
+        }
+
+        public async Task<MarketUserStakingHistoryResponse> GetUserStakingHistory(string address)
+        {
+            return await SendHyperliquidRequestAsync<MarketUserStakingHistoryResponse>(
+                "delegatorHistory",
+                new { user = address }
+                );
+        }
+
     }
+}
 
 
 

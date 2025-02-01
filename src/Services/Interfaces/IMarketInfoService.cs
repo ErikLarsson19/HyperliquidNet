@@ -61,5 +61,7 @@ namespace HyperliquidNet.src.Services.Interfaces
 
         Task<MarketUserStakingHistoryResponse> GetUserStakingHistory(string address);
 
+        Task<MarketUserStakingRewardsResponse> GetUserStakingRewards(string address);
+
     }
 }

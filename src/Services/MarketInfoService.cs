@@ -219,6 +219,14 @@ namespace HyperliquidNet.src.Services
                 );
         }
 
+        public async Task<MarketUserStakingRewardsResponse> GetUserStakingRewards(string address)
+        {
+            return await SendHyperliquidRequestAsync<MarketUserStakingRewardsResponse>(
+                "delegatorRewards",
+                new { user = address }
+                );
+
+        }
     }
 }
 

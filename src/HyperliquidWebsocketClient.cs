@@ -1,4 +1,5 @@
-﻿using System;
+﻿using HyperliquidNet.src.Services;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -9,6 +10,10 @@ using System.Threading.Tasks;
 
 namespace HyperliquidNet.src
 {
+    /// <summary>
+    /// Client for handling Websocket connections to the Hyperliquid API.
+    /// Manages connection lifestyle, message handling and resource cleanup.
+    /// </summary>
     public class HyperliquidWebsocketClient : IDisposable
     {
         private readonly HyperliquidWebsocketClientOptions _options;
@@ -16,22 +21,32 @@ namespace HyperliquidNet.src
         private readonly Uri _baseUri;
         private CancellationTokenSource _cancellationTokenSource;
         private bool _disposed;
+        public WebSocketMarketDataService Market { get; }
 
+        //Event that fires when message is received from WebSocket
         public event Action<string> OnMessage;
 
+        /// <summary>
+        /// Default constructor, initializes with default options.
+        /// </summary>
         public HyperliquidWebsocketClient()
             : this(new HyperliquidWebsocketClientOptions())
         {
-
+            Market = new WebSocketMarketDataService(this);
         }
 
+        /// <summary>
+        /// Initializes the client with custom options
+        /// </summary>
+        /// <param name="options">Config options for the WS client</param>
+        /// <exception cref="ArgumentNullException">Throws when options are null</exception>
         public HyperliquidWebsocketClient(HyperliquidWebsocketClientOptions options)
         {
             if (options == null)
             {
                 throw new ArgumentNullException(nameof(options));
             }
-
+            //Validates and clones options to prevent external modification
             options.Validate();
             _options = options.Clone();
             _baseUri = new Uri(_options.BaseUrl);
@@ -39,6 +54,11 @@ namespace HyperliquidNet.src
             _cancellationTokenSource = new CancellationTokenSource();
         }
 
+        /// <summary>
+        /// Creates the WebSocket instance with the specified options.
+        /// </summary>
+        /// <param name="options">Options to config the WS</param>
+        /// <returns>Configured ClientWebSocket instance</returns>
         public static ClientWebSocket CreateWebSocket(HyperliquidWebsocketClientOptions options)
         {
             var ws = new ClientWebSocket
@@ -52,7 +72,12 @@ namespace HyperliquidNet.src
             return ws;
         }
 
-
+        /// <summary>
+        /// Establishes connection to the Websocket server and starts message receiving
+        /// </summary>
+        /// <returns></returns>
+        /// <exception cref="ObjectDisposedException">Thrown if client is disposed</exception>
+        /// <exception cref="InvalidOperationException">Thrown if connection fails</exception>
         public async Task ConnectAsync()
         {
             if (_disposed)
@@ -61,6 +86,8 @@ namespace HyperliquidNet.src
             try
             {
                 await _websocket.ConnectAsync(_baseUri, _cancellationTokenSource.Token);
+
+                //(fire-and-forget)
                 _ = StartReceiving();
             } catch (Exception e)
             {
@@ -68,6 +95,13 @@ namespace HyperliquidNet.src
             }
         }
 
+        /// <summary>
+        /// Subscribes to a specific WebSocket feed using the provided JSON subscription message
+        /// </summary>
+        /// <param name="subscriptionJson">JSON string containing subscription details</param>
+        /// <returns></returns>
+        /// <exception cref="ObjectDisposedException">Thrown if client is disposed</exception>
+        /// <exception cref="InvalidOperationException">Thrown if WebSocket is not connected</exception>
         public async Task SubscribeAsync(string subscriptionJson)
         {
             if (_disposed)
@@ -79,6 +113,13 @@ namespace HyperliquidNet.src
             await SendAsync(subscriptionJson);
         }
 
+        /// <summary>
+        /// Unsubscribes to a specific WebSocket feed using the provided JSON subscription message
+        /// </summary>
+        /// <param name="subscriptionJson">JSON string containing subscription detials</param>
+        /// <returns></returns>
+        /// <exception cref="ObjectDisposedException">Thrown if client is disposed</exception>
+        /// <exception cref="InvalidOperationException">Thrown if WebSocket is not connected</exception>
         public async Task UnsubscribeAsync(string subscriptionJson)
         {
             if (_disposed)
@@ -90,8 +131,14 @@ namespace HyperliquidNet.src
             await SendAsync(subscriptionJson);
         }
 
+        /// <summary>
+        /// Sends a message through the WebSocket connection
+        /// </summary>
+        /// <param name="message">Message to send</param>
+        /// <returns></returns>
         private async Task SendAsync(string message)
         {
+            //Converts strings message to byte array
             var buffer = Encoding.UTF8.GetBytes(message);
             await _websocket.SendAsync(
                 new ArraySegment<byte>(buffer),
@@ -100,12 +147,19 @@ namespace HyperliquidNet.src
                 _cancellationTokenSource.Token);
         }
 
+        /// <summary>
+        /// Continuously receive messages from the WebSocket connection
+        /// </summary>
+        /// <returns></returns>
+        /// <exception cref="InvalidOperationException"></exception>
         private async Task StartReceiving()
         {
+            //buffer with size from options.
             var buffer = new byte[_options.ReceiveBufferSize];
 
             try
             {
+                //Recieve while connection is open
                 while (_websocket.State == WebSocketState.Open)
                 {
                     var result = await _websocket.ReceiveAsync(
@@ -120,6 +174,7 @@ namespace HyperliquidNet.src
                             _cancellationTokenSource.Token);
                         break;
                     }
+                    //Convert recieved bytes to string and trigger the event
                     var message = Encoding.UTF8.GetString(buffer, 0, result.Count);
                     OnMessage?.Invoke(message);
                 }
@@ -136,13 +191,54 @@ namespace HyperliquidNet.src
             }
         }
 
-       //Continue here.
+        /// <summary>
+        /// Gracefully closes the WebSocket connection.
+        /// </summary>
+        /// <returns></returns>
+        public async Task DisconnectAsync()
+        {
+            if(_websocket.State == WebSocketState.Open)
+            {
+                await _websocket.CloseAsync(
+                    WebSocketCloseStatus.NormalClosure,
+                    string.Empty,
+                    CancellationToken.None);
+            }
+        }
+
+
+
+       /// <summary>
+       /// Implements IDisposable pattern to clean up resources.
+       /// </summary>
         public void Dispose()
         {
-            _cancellationTokenSource.Cancel();
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
 
-            _websocket?.Dispose();
-            _cancellationTokenSource?.Dispose();
+        /// <summary>
+        /// Protected implementation of Dispose pattern.
+        /// </summary>
+        /// <param name="disposing">True if called from Dispose()</param>
+        protected virtual void Dispose(bool disposing)
+        {
+            if (_disposed)
+                return;
+
+            if (disposing)
+            {
+                _cancellationTokenSource.Cancel();
+                if(_websocket.State == WebSocketState.Open)
+                {
+                    _websocket.CloseAsync(WebSocketCloseStatus.NormalClosure, string.Empty, CancellationToken.None)
+                        .GetAwaiter()
+                        .GetResult();
+                }
+                _websocket.Dispose();
+                _cancellationTokenSource.Dispose();
+            }
+            _disposed = true;
         }
     }
 }

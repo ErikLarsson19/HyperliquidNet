@@ -1,4 +1,5 @@
-﻿using System;
+﻿using HyperliquidNet.src;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,15 +9,15 @@ namespace HyperliquidNet.src
 {
     public class HyperliquidWebsocketClientOptions
     {
-        public bool UseTesntet { get; set; }
+        public bool UseTestnet { get; set; }
         public int KeepAliveInterval { get; set; } = 30; //seconds
-        public int RecieiveBufferSize { get; set; } = 1024 * 4;
+        public int ReceiveBufferSize { get; set; } = 1024 * 4;
         public int TimeoutSeconds { get; set; } = 30;
 
         private string _baseUrl;
         public string BaseUrl
         {
-            get => _baseUrl ?? (UseTesntet ? DefaultTestnetUrl : DefaultMainnetUrl);
+            get => _baseUrl ?? (UseTestnet ? DefaultTestnetUrl : DefaultMainnetUrl);
             set => _baseUrl = value;
         }
 
@@ -35,5 +36,19 @@ namespace HyperliquidNet.src
             if (_baseUrl != null && !Uri.IsWellFormedUriString(_baseUrl, UriKind.Absolute))
                 throw new ArgumentException("BaseUrl must be a valid URL");
         }
+
+        internal HyperliquidWebsocketClientOptions Clone()
+        {
+            return new HyperliquidWebsocketClientOptions
+            {
+                UseTestnet = this.UseTestnet,
+                _baseUrl = this._baseUrl,
+                KeepAliveInterval = this.KeepAliveInterval,
+                ReceiveBufferSize = this.ReceiveBufferSize,
+                TimeoutSeconds = this.TimeoutSeconds
+            };
+        }
     }
 }
+
+
